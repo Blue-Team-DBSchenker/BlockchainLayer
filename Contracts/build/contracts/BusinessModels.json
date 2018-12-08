@@ -1,20 +1,20 @@
 {
   "contractName": "BusinessModels",
   "abi": [],
-  "bytecode": "0x604c602c600b82828239805160001a60731460008114601c57601e565bfe5b5030600052607381538281f30073000000000000000000000000000000000000000030146080604052600080fd00a165627a7a723058208349fdd25c9fb0295fcb873dbdbcc6b15d9f3f6ef673d938da91f05af5e2ba250029",
-  "deployedBytecode": "0x73000000000000000000000000000000000000000030146080604052600080fd00a165627a7a723058208349fdd25c9fb0295fcb873dbdbcc6b15d9f3f6ef673d938da91f05af5e2ba250029",
-  "sourceMap": "25:1083:0:-;;132:2:-1;166:7;155:9;146:7;137:37;252:7;246:14;243:1;238:23;232:4;229:33;270:1;265:20;;;;222:63;;265:20;274:9;222:63;;298:9;295:1;288:20;328:4;319:7;311:22;352:7;343;336:24",
-  "deployedSourceMap": "25:1083:0:-;;;;;;;;",
-  "source": "pragma solidity 0.4.24;\n\nlibrary BusinessModels {\n\n    enum SpeditionStatus { Active, Completed, Frozen, InConflict, Confirmed, Pending }\n\n    struct Company {\n        address companyAddress;\n        uint256 id;\n        bytes32 companyName;\n        uint[] transferDocuments;\n        uint[] employees;\n    }\n\n    struct Employee {\n        bytes32 name;\n        bytes32 surname;\n        uint employerID;\n        uint employeeID;\n        uint[] workingDocuments;\n\n        uint256 longitude;\n        uint256 latitude;\n    }\n\n    struct CmrDocument {\n        SpeditionStatus status;\n\n        uint senderCompanyID;\n\n        uint recipientCompanyID;\n\n        uint speditorCompanyID;\n    \n        Place origin;\n        Place destination;\n\n        uint[] stepIDs;\n\n        bytes32 transferedItem;\n    }\n\n    struct Place {\n        uint256 latitude;\n        uint256 longitude;\n    }\n\n    struct TransferStep {\n\n        Place stepPlace;\n\n        uint forwardedFromEmploy; // EmployeeID\n\n        uint forwardedToEmploy; // EmployeeID\n\n        string forwardReceiverComment;\n\n        bytes32 transferingVehicleID;\n    }\n}",
+  "bytecode": "0x604c602c600b82828239805160001a60731460008114601c57601e565bfe5b5030600052607381538281f30073000000000000000000000000000000000000000030146080604052600080fd00a165627a7a72305820c218020ceb9b0c33ac3f124c38170c6ed2f7443871e2bf6e88d29f76dab602bc0029",
+  "deployedBytecode": "0x73000000000000000000000000000000000000000030146080604052600080fd00a165627a7a72305820c218020ceb9b0c33ac3f124c38170c6ed2f7443871e2bf6e88d29f76dab602bc0029",
+  "sourceMap": "25:1057:0:-;;132:2:-1;166:7;155:9;146:7;137:37;252:7;246:14;243:1;238:23;232:4;229:33;270:1;265:20;;;;222:63;;265:20;274:9;222:63;;298:9;295:1;288:20;328:4;319:7;311:22;352:7;343;336:24",
+  "deployedSourceMap": "25:1057:0:-;;;;;;;;",
+  "source": "pragma solidity 0.4.24;\n\nlibrary BusinessModels {\n\n    enum SpeditionStatus { Active, Completed, Frozen, InConflict, Pending }\n\n    struct Company {\n        address companyAddress;\n        uint256 id;\n        bytes32 companyName;\n        uint[] transferDocuments;\n        uint[] employees;\n    }\n\n    struct Employee {\n        bytes32 login;\n        bytes32 password;\n        bytes32 session;\n        uint employerID;\n        uint companyEmployeeID;\n        uint systemEmployeeID;\n        uint[] workingDocuments;\n\n        uint256 longitude;\n        uint256 latitude;\n    }\n\n    struct CmrDocument {\n        SpeditionStatus status;\n\n        uint senderCompanyID;\n\n        uint recipientCompanyID;\n\n        uint speditorCompanyID;\n    \n        Place origin;\n        Place destination;\n\n        uint[] stepIDs;\n\n        bytes32 transferedItem;\n    }\n\n    struct Place {\n        uint256 latitude;\n        uint256 longitude;\n    }\n\n    struct TransferStep {\n\n        uint forwardedFromEmploy; // EmployeeID\n\n        uint forwardedToEmploy; // EmployeeID\n\n        uint commentID;\n    }\n}",
   "sourcePath": "/Users/marcello/Projects/Hackathons/Code4Schenker/BlockchainLayer/Contracts/contracts/BusinessModels.sol",
   "ast": {
     "absolutePath": "/Users/marcello/Projects/Hackathons/Code4Schenker/BlockchainLayer/Contracts/contracts/BusinessModels.sol",
     "exportedSymbols": {
       "BusinessModels": [
-        72
+        71
       ]
     },
-    "id": 73,
+    "id": 72,
     "nodeType": "SourceUnit",
     "nodes": [
       {
@@ -33,16 +33,16 @@
         "contractKind": "library",
         "documentation": null,
         "fullyImplemented": true,
-        "id": 72,
+        "id": 71,
         "linearizedBaseContracts": [
-          72
+          71
         ],
         "name": "BusinessModels",
         "nodeType": "ContractDefinition",
         "nodes": [
           {
             "canonicalName": "BusinessModels.SpeditionStatus",
-            "id": 8,
+            "id": 7,
             "members": [
               {
                 "id": 2,
@@ -70,32 +70,26 @@
               },
               {
                 "id": 6,
-                "name": "Confirmed",
-                "nodeType": "EnumValue",
-                "src": "117:9:0"
-              },
-              {
-                "id": 7,
                 "name": "Pending",
                 "nodeType": "EnumValue",
-                "src": "128:7:0"
+                "src": "117:7:0"
               }
             ],
             "name": "SpeditionStatus",
             "nodeType": "EnumDefinition",
-            "src": "55:82:0"
+            "src": "55:71:0"
           },
           {
             "canonicalName": "BusinessModels.Company",
-            "id": 21,
+            "id": 20,
             "members": [
               {
                 "constant": false,
-                "id": 10,
+                "id": 9,
                 "name": "companyAddress",
                 "nodeType": "VariableDeclaration",
-                "scope": 21,
-                "src": "168:22:0",
+                "scope": 20,
+                "src": "157:22:0",
                 "stateVariable": false,
                 "storageLocation": "default",
                 "typeDescriptions": {
@@ -103,10 +97,10 @@
                   "typeString": "address"
                 },
                 "typeName": {
-                  "id": 9,
+                  "id": 8,
                   "name": "address",
                   "nodeType": "ElementaryTypeName",
-                  "src": "168:7:0",
+                  "src": "157:7:0",
                   "typeDescriptions": {
                     "typeIdentifier": "t_address",
                     "typeString": "address"
@@ -117,11 +111,11 @@
               },
               {
                 "constant": false,
-                "id": 12,
+                "id": 11,
                 "name": "id",
                 "nodeType": "VariableDeclaration",
-                "scope": 21,
-                "src": "200:10:0",
+                "scope": 20,
+                "src": "189:10:0",
                 "stateVariable": false,
                 "storageLocation": "default",
                 "typeDescriptions": {
@@ -129,10 +123,10 @@
                   "typeString": "uint256"
                 },
                 "typeName": {
-                  "id": 11,
+                  "id": 10,
                   "name": "uint256",
                   "nodeType": "ElementaryTypeName",
-                  "src": "200:7:0",
+                  "src": "189:7:0",
                   "typeDescriptions": {
                     "typeIdentifier": "t_uint256",
                     "typeString": "uint256"
@@ -143,11 +137,11 @@
               },
               {
                 "constant": false,
-                "id": 14,
+                "id": 13,
                 "name": "companyName",
                 "nodeType": "VariableDeclaration",
-                "scope": 21,
-                "src": "220:19:0",
+                "scope": 20,
+                "src": "209:19:0",
                 "stateVariable": false,
                 "storageLocation": "default",
                 "typeDescriptions": {
@@ -155,10 +149,10 @@
                   "typeString": "bytes32"
                 },
                 "typeName": {
-                  "id": 13,
+                  "id": 12,
                   "name": "bytes32",
                   "nodeType": "ElementaryTypeName",
-                  "src": "220:7:0",
+                  "src": "209:7:0",
                   "typeDescriptions": {
                     "typeIdentifier": "t_bytes32",
                     "typeString": "bytes32"
@@ -169,11 +163,11 @@
               },
               {
                 "constant": false,
-                "id": 17,
+                "id": 16,
                 "name": "transferDocuments",
                 "nodeType": "VariableDeclaration",
-                "scope": 21,
-                "src": "249:24:0",
+                "scope": 20,
+                "src": "238:24:0",
                 "stateVariable": false,
                 "storageLocation": "default",
                 "typeDescriptions": {
@@ -182,19 +176,19 @@
                 },
                 "typeName": {
                   "baseType": {
-                    "id": 15,
+                    "id": 14,
                     "name": "uint",
                     "nodeType": "ElementaryTypeName",
-                    "src": "249:4:0",
+                    "src": "238:4:0",
                     "typeDescriptions": {
                       "typeIdentifier": "t_uint256",
                       "typeString": "uint256"
                     }
                   },
-                  "id": 16,
+                  "id": 15,
                   "length": null,
                   "nodeType": "ArrayTypeName",
-                  "src": "249:6:0",
+                  "src": "238:6:0",
                   "typeDescriptions": {
                     "typeIdentifier": "t_array$_t_uint256_$dyn_storage_ptr",
                     "typeString": "uint256[]"
@@ -205,11 +199,11 @@
               },
               {
                 "constant": false,
-                "id": 20,
+                "id": 19,
                 "name": "employees",
                 "nodeType": "VariableDeclaration",
-                "scope": 21,
-                "src": "283:16:0",
+                "scope": 20,
+                "src": "272:16:0",
                 "stateVariable": false,
                 "storageLocation": "default",
                 "typeDescriptions": {
@@ -218,19 +212,19 @@
                 },
                 "typeName": {
                   "baseType": {
-                    "id": 18,
+                    "id": 17,
                     "name": "uint",
                     "nodeType": "ElementaryTypeName",
-                    "src": "283:4:0",
+                    "src": "272:4:0",
                     "typeDescriptions": {
                       "typeIdentifier": "t_uint256",
                       "typeString": "uint256"
                     }
                   },
-                  "id": 19,
+                  "id": 18,
                   "length": null,
                   "nodeType": "ArrayTypeName",
-                  "src": "283:6:0",
+                  "src": "272:6:0",
                   "typeDescriptions": {
                     "typeIdentifier": "t_array$_t_uint256_$dyn_storage_ptr",
                     "typeString": "uint256[]"
@@ -242,21 +236,21 @@
             ],
             "name": "Company",
             "nodeType": "StructDefinition",
-            "scope": 72,
-            "src": "143:163:0",
+            "scope": 71,
+            "src": "132:163:0",
             "visibility": "public"
           },
           {
             "canonicalName": "BusinessModels.Employee",
-            "id": 37,
+            "id": 40,
             "members": [
               {
                 "constant": false,
-                "id": 23,
-                "name": "name",
+                "id": 22,
+                "name": "login",
                 "nodeType": "VariableDeclaration",
-                "scope": 37,
-                "src": "338:12:0",
+                "scope": 40,
+                "src": "327:13:0",
                 "stateVariable": false,
                 "storageLocation": "default",
                 "typeDescriptions": {
@@ -264,10 +258,10 @@
                   "typeString": "bytes32"
                 },
                 "typeName": {
-                  "id": 22,
+                  "id": 21,
                   "name": "bytes32",
                   "nodeType": "ElementaryTypeName",
-                  "src": "338:7:0",
+                  "src": "327:7:0",
                   "typeDescriptions": {
                     "typeIdentifier": "t_bytes32",
                     "typeString": "bytes32"
@@ -278,11 +272,11 @@
               },
               {
                 "constant": false,
-                "id": 25,
-                "name": "surname",
+                "id": 24,
+                "name": "password",
                 "nodeType": "VariableDeclaration",
-                "scope": 37,
-                "src": "360:15:0",
+                "scope": 40,
+                "src": "350:16:0",
                 "stateVariable": false,
                 "storageLocation": "default",
                 "typeDescriptions": {
@@ -290,10 +284,10 @@
                   "typeString": "bytes32"
                 },
                 "typeName": {
-                  "id": 24,
+                  "id": 23,
                   "name": "bytes32",
                   "nodeType": "ElementaryTypeName",
-                  "src": "360:7:0",
+                  "src": "350:7:0",
                   "typeDescriptions": {
                     "typeIdentifier": "t_bytes32",
                     "typeString": "bytes32"
@@ -304,11 +298,37 @@
               },
               {
                 "constant": false,
-                "id": 27,
+                "id": 26,
+                "name": "session",
+                "nodeType": "VariableDeclaration",
+                "scope": 40,
+                "src": "376:15:0",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_bytes32",
+                  "typeString": "bytes32"
+                },
+                "typeName": {
+                  "id": 25,
+                  "name": "bytes32",
+                  "nodeType": "ElementaryTypeName",
+                  "src": "376:7:0",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_bytes32",
+                    "typeString": "bytes32"
+                  }
+                },
+                "value": null,
+                "visibility": "internal"
+              },
+              {
+                "constant": false,
+                "id": 28,
                 "name": "employerID",
                 "nodeType": "VariableDeclaration",
-                "scope": 37,
-                "src": "385:15:0",
+                "scope": 40,
+                "src": "401:15:0",
                 "stateVariable": false,
                 "storageLocation": "default",
                 "typeDescriptions": {
@@ -316,10 +336,10 @@
                   "typeString": "uint256"
                 },
                 "typeName": {
-                  "id": 26,
+                  "id": 27,
                   "name": "uint",
                   "nodeType": "ElementaryTypeName",
-                  "src": "385:4:0",
+                  "src": "401:4:0",
                   "typeDescriptions": {
                     "typeIdentifier": "t_uint256",
                     "typeString": "uint256"
@@ -330,11 +350,11 @@
               },
               {
                 "constant": false,
-                "id": 29,
-                "name": "employeeID",
+                "id": 30,
+                "name": "companyEmployeeID",
                 "nodeType": "VariableDeclaration",
-                "scope": 37,
-                "src": "410:15:0",
+                "scope": 40,
+                "src": "426:22:0",
                 "stateVariable": false,
                 "storageLocation": "default",
                 "typeDescriptions": {
@@ -342,10 +362,10 @@
                   "typeString": "uint256"
                 },
                 "typeName": {
-                  "id": 28,
+                  "id": 29,
                   "name": "uint",
                   "nodeType": "ElementaryTypeName",
-                  "src": "410:4:0",
+                  "src": "426:4:0",
                   "typeDescriptions": {
                     "typeIdentifier": "t_uint256",
                     "typeString": "uint256"
@@ -357,46 +377,10 @@
               {
                 "constant": false,
                 "id": 32,
-                "name": "workingDocuments",
+                "name": "systemEmployeeID",
                 "nodeType": "VariableDeclaration",
-                "scope": 37,
-                "src": "435:23:0",
-                "stateVariable": false,
-                "storageLocation": "default",
-                "typeDescriptions": {
-                  "typeIdentifier": "t_array$_t_uint256_$dyn_storage_ptr",
-                  "typeString": "uint256[]"
-                },
-                "typeName": {
-                  "baseType": {
-                    "id": 30,
-                    "name": "uint",
-                    "nodeType": "ElementaryTypeName",
-                    "src": "435:4:0",
-                    "typeDescriptions": {
-                      "typeIdentifier": "t_uint256",
-                      "typeString": "uint256"
-                    }
-                  },
-                  "id": 31,
-                  "length": null,
-                  "nodeType": "ArrayTypeName",
-                  "src": "435:6:0",
-                  "typeDescriptions": {
-                    "typeIdentifier": "t_array$_t_uint256_$dyn_storage_ptr",
-                    "typeString": "uint256[]"
-                  }
-                },
-                "value": null,
-                "visibility": "internal"
-              },
-              {
-                "constant": false,
-                "id": 34,
-                "name": "longitude",
-                "nodeType": "VariableDeclaration",
-                "scope": 37,
-                "src": "469:17:0",
+                "scope": 40,
+                "src": "458:21:0",
                 "stateVariable": false,
                 "storageLocation": "default",
                 "typeDescriptions": {
@@ -404,10 +388,10 @@
                   "typeString": "uint256"
                 },
                 "typeName": {
-                  "id": 33,
-                  "name": "uint256",
+                  "id": 31,
+                  "name": "uint",
                   "nodeType": "ElementaryTypeName",
-                  "src": "469:7:0",
+                  "src": "458:4:0",
                   "typeDescriptions": {
                     "typeIdentifier": "t_uint256",
                     "typeString": "uint256"
@@ -418,11 +402,47 @@
               },
               {
                 "constant": false,
-                "id": 36,
-                "name": "latitude",
+                "id": 35,
+                "name": "workingDocuments",
                 "nodeType": "VariableDeclaration",
-                "scope": 37,
-                "src": "496:16:0",
+                "scope": 40,
+                "src": "489:23:0",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_array$_t_uint256_$dyn_storage_ptr",
+                  "typeString": "uint256[]"
+                },
+                "typeName": {
+                  "baseType": {
+                    "id": 33,
+                    "name": "uint",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "489:4:0",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "id": 34,
+                  "length": null,
+                  "nodeType": "ArrayTypeName",
+                  "src": "489:6:0",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_array$_t_uint256_$dyn_storage_ptr",
+                    "typeString": "uint256[]"
+                  }
+                },
+                "value": null,
+                "visibility": "internal"
+              },
+              {
+                "constant": false,
+                "id": 37,
+                "name": "longitude",
+                "nodeType": "VariableDeclaration",
+                "scope": 40,
+                "src": "523:17:0",
                 "stateVariable": false,
                 "storageLocation": "default",
                 "typeDescriptions": {
@@ -430,10 +450,36 @@
                   "typeString": "uint256"
                 },
                 "typeName": {
-                  "id": 35,
+                  "id": 36,
                   "name": "uint256",
                   "nodeType": "ElementaryTypeName",
-                  "src": "496:7:0",
+                  "src": "523:7:0",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  }
+                },
+                "value": null,
+                "visibility": "internal"
+              },
+              {
+                "constant": false,
+                "id": 39,
+                "name": "latitude",
+                "nodeType": "VariableDeclaration",
+                "scope": 40,
+                "src": "550:16:0",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_uint256",
+                  "typeString": "uint256"
+                },
+                "typeName": {
+                  "id": 38,
+                  "name": "uint256",
+                  "nodeType": "ElementaryTypeName",
+                  "src": "550:7:0",
                   "typeDescriptions": {
                     "typeIdentifier": "t_uint256",
                     "typeString": "uint256"
@@ -445,36 +491,36 @@
             ],
             "name": "Employee",
             "nodeType": "StructDefinition",
-            "scope": 72,
-            "src": "312:207:0",
+            "scope": 71,
+            "src": "301:272:0",
             "visibility": "public"
           },
           {
             "canonicalName": "BusinessModels.CmrDocument",
-            "id": 55,
+            "id": 58,
             "members": [
               {
                 "constant": false,
-                "id": 39,
+                "id": 42,
                 "name": "status",
                 "nodeType": "VariableDeclaration",
-                "scope": 55,
-                "src": "554:22:0",
+                "scope": 58,
+                "src": "608:22:0",
                 "stateVariable": false,
                 "storageLocation": "default",
                 "typeDescriptions": {
-                  "typeIdentifier": "t_enum$_SpeditionStatus_$8",
+                  "typeIdentifier": "t_enum$_SpeditionStatus_$7",
                   "typeString": "enum BusinessModels.SpeditionStatus"
                 },
                 "typeName": {
                   "contractScope": null,
-                  "id": 38,
+                  "id": 41,
                   "name": "SpeditionStatus",
                   "nodeType": "UserDefinedTypeName",
-                  "referencedDeclaration": 8,
-                  "src": "554:15:0",
+                  "referencedDeclaration": 7,
+                  "src": "608:15:0",
                   "typeDescriptions": {
-                    "typeIdentifier": "t_enum$_SpeditionStatus_$8",
+                    "typeIdentifier": "t_enum$_SpeditionStatus_$7",
                     "typeString": "enum BusinessModels.SpeditionStatus"
                   }
                 },
@@ -483,11 +529,11 @@
               },
               {
                 "constant": false,
-                "id": 41,
+                "id": 44,
                 "name": "senderCompanyID",
                 "nodeType": "VariableDeclaration",
-                "scope": 55,
-                "src": "587:20:0",
+                "scope": 58,
+                "src": "641:20:0",
                 "stateVariable": false,
                 "storageLocation": "default",
                 "typeDescriptions": {
@@ -495,10 +541,10 @@
                   "typeString": "uint256"
                 },
                 "typeName": {
-                  "id": 40,
+                  "id": 43,
                   "name": "uint",
                   "nodeType": "ElementaryTypeName",
-                  "src": "587:4:0",
+                  "src": "641:4:0",
                   "typeDescriptions": {
                     "typeIdentifier": "t_uint256",
                     "typeString": "uint256"
@@ -509,11 +555,11 @@
               },
               {
                 "constant": false,
-                "id": 43,
+                "id": 46,
                 "name": "recipientCompanyID",
                 "nodeType": "VariableDeclaration",
-                "scope": 55,
-                "src": "618:23:0",
+                "scope": 58,
+                "src": "672:23:0",
                 "stateVariable": false,
                 "storageLocation": "default",
                 "typeDescriptions": {
@@ -521,10 +567,10 @@
                   "typeString": "uint256"
                 },
                 "typeName": {
-                  "id": 42,
+                  "id": 45,
                   "name": "uint",
                   "nodeType": "ElementaryTypeName",
-                  "src": "618:4:0",
+                  "src": "672:4:0",
                   "typeDescriptions": {
                     "typeIdentifier": "t_uint256",
                     "typeString": "uint256"
@@ -535,11 +581,11 @@
               },
               {
                 "constant": false,
-                "id": 45,
+                "id": 48,
                 "name": "speditorCompanyID",
                 "nodeType": "VariableDeclaration",
-                "scope": 55,
-                "src": "652:22:0",
+                "scope": 58,
+                "src": "706:22:0",
                 "stateVariable": false,
                 "storageLocation": "default",
                 "typeDescriptions": {
@@ -547,10 +593,10 @@
                   "typeString": "uint256"
                 },
                 "typeName": {
-                  "id": 44,
+                  "id": 47,
                   "name": "uint",
                   "nodeType": "ElementaryTypeName",
-                  "src": "652:4:0",
+                  "src": "706:4:0",
                   "typeDescriptions": {
                     "typeIdentifier": "t_uint256",
                     "typeString": "uint256"
@@ -561,54 +607,26 @@
               },
               {
                 "constant": false,
-                "id": 47,
+                "id": 50,
                 "name": "origin",
                 "nodeType": "VariableDeclaration",
-                "scope": 55,
-                "src": "689:12:0",
+                "scope": 58,
+                "src": "743:12:0",
                 "stateVariable": false,
                 "storageLocation": "default",
                 "typeDescriptions": {
-                  "typeIdentifier": "t_struct$_Place_$60_storage_ptr",
+                  "typeIdentifier": "t_struct$_Place_$63_storage_ptr",
                   "typeString": "struct BusinessModels.Place"
                 },
                 "typeName": {
                   "contractScope": null,
-                  "id": 46,
+                  "id": 49,
                   "name": "Place",
                   "nodeType": "UserDefinedTypeName",
-                  "referencedDeclaration": 60,
-                  "src": "689:5:0",
+                  "referencedDeclaration": 63,
+                  "src": "743:5:0",
                   "typeDescriptions": {
-                    "typeIdentifier": "t_struct$_Place_$60_storage_ptr",
-                    "typeString": "struct BusinessModels.Place"
-                  }
-                },
-                "value": null,
-                "visibility": "internal"
-              },
-              {
-                "constant": false,
-                "id": 49,
-                "name": "destination",
-                "nodeType": "VariableDeclaration",
-                "scope": 55,
-                "src": "711:17:0",
-                "stateVariable": false,
-                "storageLocation": "default",
-                "typeDescriptions": {
-                  "typeIdentifier": "t_struct$_Place_$60_storage_ptr",
-                  "typeString": "struct BusinessModels.Place"
-                },
-                "typeName": {
-                  "contractScope": null,
-                  "id": 48,
-                  "name": "Place",
-                  "nodeType": "UserDefinedTypeName",
-                  "referencedDeclaration": 60,
-                  "src": "711:5:0",
-                  "typeDescriptions": {
-                    "typeIdentifier": "t_struct$_Place_$60_storage_ptr",
+                    "typeIdentifier": "t_struct$_Place_$63_storage_ptr",
                     "typeString": "struct BusinessModels.Place"
                   }
                 },
@@ -618,10 +636,38 @@
               {
                 "constant": false,
                 "id": 52,
+                "name": "destination",
+                "nodeType": "VariableDeclaration",
+                "scope": 58,
+                "src": "765:17:0",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_struct$_Place_$63_storage_ptr",
+                  "typeString": "struct BusinessModels.Place"
+                },
+                "typeName": {
+                  "contractScope": null,
+                  "id": 51,
+                  "name": "Place",
+                  "nodeType": "UserDefinedTypeName",
+                  "referencedDeclaration": 63,
+                  "src": "765:5:0",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_struct$_Place_$63_storage_ptr",
+                    "typeString": "struct BusinessModels.Place"
+                  }
+                },
+                "value": null,
+                "visibility": "internal"
+              },
+              {
+                "constant": false,
+                "id": 55,
                 "name": "stepIDs",
                 "nodeType": "VariableDeclaration",
-                "scope": 55,
-                "src": "739:14:0",
+                "scope": 58,
+                "src": "793:14:0",
                 "stateVariable": false,
                 "storageLocation": "default",
                 "typeDescriptions": {
@@ -630,19 +676,19 @@
                 },
                 "typeName": {
                   "baseType": {
-                    "id": 50,
+                    "id": 53,
                     "name": "uint",
                     "nodeType": "ElementaryTypeName",
-                    "src": "739:4:0",
+                    "src": "793:4:0",
                     "typeDescriptions": {
                       "typeIdentifier": "t_uint256",
                       "typeString": "uint256"
                     }
                   },
-                  "id": 51,
+                  "id": 54,
                   "length": null,
                   "nodeType": "ArrayTypeName",
-                  "src": "739:6:0",
+                  "src": "793:6:0",
                   "typeDescriptions": {
                     "typeIdentifier": "t_array$_t_uint256_$dyn_storage_ptr",
                     "typeString": "uint256[]"
@@ -653,11 +699,11 @@
               },
               {
                 "constant": false,
-                "id": 54,
+                "id": 57,
                 "name": "transferedItem",
                 "nodeType": "VariableDeclaration",
-                "scope": 55,
-                "src": "764:22:0",
+                "scope": 58,
+                "src": "818:22:0",
                 "stateVariable": false,
                 "storageLocation": "default",
                 "typeDescriptions": {
@@ -665,10 +711,10 @@
                   "typeString": "bytes32"
                 },
                 "typeName": {
-                  "id": 53,
+                  "id": 56,
                   "name": "bytes32",
                   "nodeType": "ElementaryTypeName",
-                  "src": "764:7:0",
+                  "src": "818:7:0",
                   "typeDescriptions": {
                     "typeIdentifier": "t_bytes32",
                     "typeString": "bytes32"
@@ -680,21 +726,21 @@
             ],
             "name": "CmrDocument",
             "nodeType": "StructDefinition",
-            "scope": 72,
-            "src": "525:268:0",
+            "scope": 71,
+            "src": "579:268:0",
             "visibility": "public"
           },
           {
             "canonicalName": "BusinessModels.Place",
-            "id": 60,
+            "id": 63,
             "members": [
               {
                 "constant": false,
-                "id": 57,
+                "id": 60,
                 "name": "latitude",
                 "nodeType": "VariableDeclaration",
-                "scope": 60,
-                "src": "822:16:0",
+                "scope": 63,
+                "src": "876:16:0",
                 "stateVariable": false,
                 "storageLocation": "default",
                 "typeDescriptions": {
@@ -702,10 +748,10 @@
                   "typeString": "uint256"
                 },
                 "typeName": {
-                  "id": 56,
+                  "id": 59,
                   "name": "uint256",
                   "nodeType": "ElementaryTypeName",
-                  "src": "822:7:0",
+                  "src": "876:7:0",
                   "typeDescriptions": {
                     "typeIdentifier": "t_uint256",
                     "typeString": "uint256"
@@ -716,11 +762,11 @@
               },
               {
                 "constant": false,
-                "id": 59,
+                "id": 62,
                 "name": "longitude",
                 "nodeType": "VariableDeclaration",
-                "scope": 60,
-                "src": "848:17:0",
+                "scope": 63,
+                "src": "902:17:0",
                 "stateVariable": false,
                 "storageLocation": "default",
                 "typeDescriptions": {
@@ -728,10 +774,10 @@
                   "typeString": "uint256"
                 },
                 "typeName": {
-                  "id": 58,
+                  "id": 61,
                   "name": "uint256",
                   "nodeType": "ElementaryTypeName",
-                  "src": "848:7:0",
+                  "src": "902:7:0",
                   "typeDescriptions": {
                     "typeIdentifier": "t_uint256",
                     "typeString": "uint256"
@@ -743,49 +789,21 @@
             ],
             "name": "Place",
             "nodeType": "StructDefinition",
-            "scope": 72,
-            "src": "799:73:0",
+            "scope": 71,
+            "src": "853:73:0",
             "visibility": "public"
           },
           {
             "canonicalName": "BusinessModels.TransferStep",
-            "id": 71,
+            "id": 70,
             "members": [
               {
                 "constant": false,
-                "id": 62,
-                "name": "stepPlace",
-                "nodeType": "VariableDeclaration",
-                "scope": 71,
-                "src": "909:15:0",
-                "stateVariable": false,
-                "storageLocation": "default",
-                "typeDescriptions": {
-                  "typeIdentifier": "t_struct$_Place_$60_storage_ptr",
-                  "typeString": "struct BusinessModels.Place"
-                },
-                "typeName": {
-                  "contractScope": null,
-                  "id": 61,
-                  "name": "Place",
-                  "nodeType": "UserDefinedTypeName",
-                  "referencedDeclaration": 60,
-                  "src": "909:5:0",
-                  "typeDescriptions": {
-                    "typeIdentifier": "t_struct$_Place_$60_storage_ptr",
-                    "typeString": "struct BusinessModels.Place"
-                  }
-                },
-                "value": null,
-                "visibility": "internal"
-              },
-              {
-                "constant": false,
-                "id": 64,
+                "id": 65,
                 "name": "forwardedFromEmploy",
                 "nodeType": "VariableDeclaration",
-                "scope": 71,
-                "src": "935:24:0",
+                "scope": 70,
+                "src": "963:24:0",
                 "stateVariable": false,
                 "storageLocation": "default",
                 "typeDescriptions": {
@@ -793,10 +811,10 @@
                   "typeString": "uint256"
                 },
                 "typeName": {
-                  "id": 63,
+                  "id": 64,
                   "name": "uint",
                   "nodeType": "ElementaryTypeName",
-                  "src": "935:4:0",
+                  "src": "963:4:0",
                   "typeDescriptions": {
                     "typeIdentifier": "t_uint256",
                     "typeString": "uint256"
@@ -807,11 +825,11 @@
               },
               {
                 "constant": false,
-                "id": 66,
+                "id": 67,
                 "name": "forwardedToEmploy",
                 "nodeType": "VariableDeclaration",
-                "scope": 71,
-                "src": "984:22:0",
+                "scope": 70,
+                "src": "1012:22:0",
                 "stateVariable": false,
                 "storageLocation": "default",
                 "typeDescriptions": {
@@ -819,10 +837,10 @@
                   "typeString": "uint256"
                 },
                 "typeName": {
-                  "id": 65,
+                  "id": 66,
                   "name": "uint",
                   "nodeType": "ElementaryTypeName",
-                  "src": "984:4:0",
+                  "src": "1012:4:0",
                   "typeDescriptions": {
                     "typeIdentifier": "t_uint256",
                     "typeString": "uint256"
@@ -833,51 +851,25 @@
               },
               {
                 "constant": false,
-                "id": 68,
-                "name": "forwardReceiverComment",
+                "id": 69,
+                "name": "commentID",
                 "nodeType": "VariableDeclaration",
-                "scope": 71,
-                "src": "1031:29:0",
+                "scope": 70,
+                "src": "1059:14:0",
                 "stateVariable": false,
                 "storageLocation": "default",
                 "typeDescriptions": {
-                  "typeIdentifier": "t_string_storage_ptr",
-                  "typeString": "string"
+                  "typeIdentifier": "t_uint256",
+                  "typeString": "uint256"
                 },
                 "typeName": {
-                  "id": 67,
-                  "name": "string",
+                  "id": 68,
+                  "name": "uint",
                   "nodeType": "ElementaryTypeName",
-                  "src": "1031:6:0",
+                  "src": "1059:4:0",
                   "typeDescriptions": {
-                    "typeIdentifier": "t_string_storage_ptr",
-                    "typeString": "string"
-                  }
-                },
-                "value": null,
-                "visibility": "internal"
-              },
-              {
-                "constant": false,
-                "id": 70,
-                "name": "transferingVehicleID",
-                "nodeType": "VariableDeclaration",
-                "scope": 71,
-                "src": "1071:28:0",
-                "stateVariable": false,
-                "storageLocation": "default",
-                "typeDescriptions": {
-                  "typeIdentifier": "t_bytes32",
-                  "typeString": "bytes32"
-                },
-                "typeName": {
-                  "id": 69,
-                  "name": "bytes32",
-                  "nodeType": "ElementaryTypeName",
-                  "src": "1071:7:0",
-                  "typeDescriptions": {
-                    "typeIdentifier": "t_bytes32",
-                    "typeString": "bytes32"
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
                   }
                 },
                 "value": null,
@@ -886,25 +878,25 @@
             ],
             "name": "TransferStep",
             "nodeType": "StructDefinition",
-            "scope": 72,
-            "src": "878:228:0",
+            "scope": 71,
+            "src": "932:148:0",
             "visibility": "public"
           }
         ],
-        "scope": 73,
-        "src": "25:1083:0"
+        "scope": 72,
+        "src": "25:1057:0"
       }
     ],
-    "src": "0:1108:0"
+    "src": "0:1082:0"
   },
   "legacyAST": {
     "absolutePath": "/Users/marcello/Projects/Hackathons/Code4Schenker/BlockchainLayer/Contracts/contracts/BusinessModels.sol",
     "exportedSymbols": {
       "BusinessModels": [
-        72
+        71
       ]
     },
-    "id": 73,
+    "id": 72,
     "nodeType": "SourceUnit",
     "nodes": [
       {
@@ -923,16 +915,16 @@
         "contractKind": "library",
         "documentation": null,
         "fullyImplemented": true,
-        "id": 72,
+        "id": 71,
         "linearizedBaseContracts": [
-          72
+          71
         ],
         "name": "BusinessModels",
         "nodeType": "ContractDefinition",
         "nodes": [
           {
             "canonicalName": "BusinessModels.SpeditionStatus",
-            "id": 8,
+            "id": 7,
             "members": [
               {
                 "id": 2,
@@ -960,32 +952,26 @@
               },
               {
                 "id": 6,
-                "name": "Confirmed",
-                "nodeType": "EnumValue",
-                "src": "117:9:0"
-              },
-              {
-                "id": 7,
                 "name": "Pending",
                 "nodeType": "EnumValue",
-                "src": "128:7:0"
+                "src": "117:7:0"
               }
             ],
             "name": "SpeditionStatus",
             "nodeType": "EnumDefinition",
-            "src": "55:82:0"
+            "src": "55:71:0"
           },
           {
             "canonicalName": "BusinessModels.Company",
-            "id": 21,
+            "id": 20,
             "members": [
               {
                 "constant": false,
-                "id": 10,
+                "id": 9,
                 "name": "companyAddress",
                 "nodeType": "VariableDeclaration",
-                "scope": 21,
-                "src": "168:22:0",
+                "scope": 20,
+                "src": "157:22:0",
                 "stateVariable": false,
                 "storageLocation": "default",
                 "typeDescriptions": {
@@ -993,10 +979,10 @@
                   "typeString": "address"
                 },
                 "typeName": {
-                  "id": 9,
+                  "id": 8,
                   "name": "address",
                   "nodeType": "ElementaryTypeName",
-                  "src": "168:7:0",
+                  "src": "157:7:0",
                   "typeDescriptions": {
                     "typeIdentifier": "t_address",
                     "typeString": "address"
@@ -1007,11 +993,11 @@
               },
               {
                 "constant": false,
-                "id": 12,
+                "id": 11,
                 "name": "id",
                 "nodeType": "VariableDeclaration",
-                "scope": 21,
-                "src": "200:10:0",
+                "scope": 20,
+                "src": "189:10:0",
                 "stateVariable": false,
                 "storageLocation": "default",
                 "typeDescriptions": {
@@ -1019,10 +1005,10 @@
                   "typeString": "uint256"
                 },
                 "typeName": {
-                  "id": 11,
+                  "id": 10,
                   "name": "uint256",
                   "nodeType": "ElementaryTypeName",
-                  "src": "200:7:0",
+                  "src": "189:7:0",
                   "typeDescriptions": {
                     "typeIdentifier": "t_uint256",
                     "typeString": "uint256"
@@ -1033,11 +1019,11 @@
               },
               {
                 "constant": false,
-                "id": 14,
+                "id": 13,
                 "name": "companyName",
                 "nodeType": "VariableDeclaration",
-                "scope": 21,
-                "src": "220:19:0",
+                "scope": 20,
+                "src": "209:19:0",
                 "stateVariable": false,
                 "storageLocation": "default",
                 "typeDescriptions": {
@@ -1045,10 +1031,10 @@
                   "typeString": "bytes32"
                 },
                 "typeName": {
-                  "id": 13,
+                  "id": 12,
                   "name": "bytes32",
                   "nodeType": "ElementaryTypeName",
-                  "src": "220:7:0",
+                  "src": "209:7:0",
                   "typeDescriptions": {
                     "typeIdentifier": "t_bytes32",
                     "typeString": "bytes32"
@@ -1059,11 +1045,11 @@
               },
               {
                 "constant": false,
-                "id": 17,
+                "id": 16,
                 "name": "transferDocuments",
                 "nodeType": "VariableDeclaration",
-                "scope": 21,
-                "src": "249:24:0",
+                "scope": 20,
+                "src": "238:24:0",
                 "stateVariable": false,
                 "storageLocation": "default",
                 "typeDescriptions": {
@@ -1072,19 +1058,19 @@
                 },
                 "typeName": {
                   "baseType": {
-                    "id": 15,
+                    "id": 14,
                     "name": "uint",
                     "nodeType": "ElementaryTypeName",
-                    "src": "249:4:0",
+                    "src": "238:4:0",
                     "typeDescriptions": {
                       "typeIdentifier": "t_uint256",
                       "typeString": "uint256"
                     }
                   },
-                  "id": 16,
+                  "id": 15,
                   "length": null,
                   "nodeType": "ArrayTypeName",
-                  "src": "249:6:0",
+                  "src": "238:6:0",
                   "typeDescriptions": {
                     "typeIdentifier": "t_array$_t_uint256_$dyn_storage_ptr",
                     "typeString": "uint256[]"
@@ -1095,11 +1081,11 @@
               },
               {
                 "constant": false,
-                "id": 20,
+                "id": 19,
                 "name": "employees",
                 "nodeType": "VariableDeclaration",
-                "scope": 21,
-                "src": "283:16:0",
+                "scope": 20,
+                "src": "272:16:0",
                 "stateVariable": false,
                 "storageLocation": "default",
                 "typeDescriptions": {
@@ -1108,19 +1094,19 @@
                 },
                 "typeName": {
                   "baseType": {
-                    "id": 18,
+                    "id": 17,
                     "name": "uint",
                     "nodeType": "ElementaryTypeName",
-                    "src": "283:4:0",
+                    "src": "272:4:0",
                     "typeDescriptions": {
                       "typeIdentifier": "t_uint256",
                       "typeString": "uint256"
                     }
                   },
-                  "id": 19,
+                  "id": 18,
                   "length": null,
                   "nodeType": "ArrayTypeName",
-                  "src": "283:6:0",
+                  "src": "272:6:0",
                   "typeDescriptions": {
                     "typeIdentifier": "t_array$_t_uint256_$dyn_storage_ptr",
                     "typeString": "uint256[]"
@@ -1132,21 +1118,21 @@
             ],
             "name": "Company",
             "nodeType": "StructDefinition",
-            "scope": 72,
-            "src": "143:163:0",
+            "scope": 71,
+            "src": "132:163:0",
             "visibility": "public"
           },
           {
             "canonicalName": "BusinessModels.Employee",
-            "id": 37,
+            "id": 40,
             "members": [
               {
                 "constant": false,
-                "id": 23,
-                "name": "name",
+                "id": 22,
+                "name": "login",
                 "nodeType": "VariableDeclaration",
-                "scope": 37,
-                "src": "338:12:0",
+                "scope": 40,
+                "src": "327:13:0",
                 "stateVariable": false,
                 "storageLocation": "default",
                 "typeDescriptions": {
@@ -1154,10 +1140,10 @@
                   "typeString": "bytes32"
                 },
                 "typeName": {
-                  "id": 22,
+                  "id": 21,
                   "name": "bytes32",
                   "nodeType": "ElementaryTypeName",
-                  "src": "338:7:0",
+                  "src": "327:7:0",
                   "typeDescriptions": {
                     "typeIdentifier": "t_bytes32",
                     "typeString": "bytes32"
@@ -1168,11 +1154,11 @@
               },
               {
                 "constant": false,
-                "id": 25,
-                "name": "surname",
+                "id": 24,
+                "name": "password",
                 "nodeType": "VariableDeclaration",
-                "scope": 37,
-                "src": "360:15:0",
+                "scope": 40,
+                "src": "350:16:0",
                 "stateVariable": false,
                 "storageLocation": "default",
                 "typeDescriptions": {
@@ -1180,10 +1166,10 @@
                   "typeString": "bytes32"
                 },
                 "typeName": {
-                  "id": 24,
+                  "id": 23,
                   "name": "bytes32",
                   "nodeType": "ElementaryTypeName",
-                  "src": "360:7:0",
+                  "src": "350:7:0",
                   "typeDescriptions": {
                     "typeIdentifier": "t_bytes32",
                     "typeString": "bytes32"
@@ -1194,11 +1180,37 @@
               },
               {
                 "constant": false,
-                "id": 27,
+                "id": 26,
+                "name": "session",
+                "nodeType": "VariableDeclaration",
+                "scope": 40,
+                "src": "376:15:0",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_bytes32",
+                  "typeString": "bytes32"
+                },
+                "typeName": {
+                  "id": 25,
+                  "name": "bytes32",
+                  "nodeType": "ElementaryTypeName",
+                  "src": "376:7:0",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_bytes32",
+                    "typeString": "bytes32"
+                  }
+                },
+                "value": null,
+                "visibility": "internal"
+              },
+              {
+                "constant": false,
+                "id": 28,
                 "name": "employerID",
                 "nodeType": "VariableDeclaration",
-                "scope": 37,
-                "src": "385:15:0",
+                "scope": 40,
+                "src": "401:15:0",
                 "stateVariable": false,
                 "storageLocation": "default",
                 "typeDescriptions": {
@@ -1206,10 +1218,10 @@
                   "typeString": "uint256"
                 },
                 "typeName": {
-                  "id": 26,
+                  "id": 27,
                   "name": "uint",
                   "nodeType": "ElementaryTypeName",
-                  "src": "385:4:0",
+                  "src": "401:4:0",
                   "typeDescriptions": {
                     "typeIdentifier": "t_uint256",
                     "typeString": "uint256"
@@ -1220,11 +1232,11 @@
               },
               {
                 "constant": false,
-                "id": 29,
-                "name": "employeeID",
+                "id": 30,
+                "name": "companyEmployeeID",
                 "nodeType": "VariableDeclaration",
-                "scope": 37,
-                "src": "410:15:0",
+                "scope": 40,
+                "src": "426:22:0",
                 "stateVariable": false,
                 "storageLocation": "default",
                 "typeDescriptions": {
@@ -1232,10 +1244,10 @@
                   "typeString": "uint256"
                 },
                 "typeName": {
-                  "id": 28,
+                  "id": 29,
                   "name": "uint",
                   "nodeType": "ElementaryTypeName",
-                  "src": "410:4:0",
+                  "src": "426:4:0",
                   "typeDescriptions": {
                     "typeIdentifier": "t_uint256",
                     "typeString": "uint256"
@@ -1247,46 +1259,10 @@
               {
                 "constant": false,
                 "id": 32,
-                "name": "workingDocuments",
+                "name": "systemEmployeeID",
                 "nodeType": "VariableDeclaration",
-                "scope": 37,
-                "src": "435:23:0",
-                "stateVariable": false,
-                "storageLocation": "default",
-                "typeDescriptions": {
-                  "typeIdentifier": "t_array$_t_uint256_$dyn_storage_ptr",
-                  "typeString": "uint256[]"
-                },
-                "typeName": {
-                  "baseType": {
-                    "id": 30,
-                    "name": "uint",
-                    "nodeType": "ElementaryTypeName",
-                    "src": "435:4:0",
-                    "typeDescriptions": {
-                      "typeIdentifier": "t_uint256",
-                      "typeString": "uint256"
-                    }
-                  },
-                  "id": 31,
-                  "length": null,
-                  "nodeType": "ArrayTypeName",
-                  "src": "435:6:0",
-                  "typeDescriptions": {
-                    "typeIdentifier": "t_array$_t_uint256_$dyn_storage_ptr",
-                    "typeString": "uint256[]"
-                  }
-                },
-                "value": null,
-                "visibility": "internal"
-              },
-              {
-                "constant": false,
-                "id": 34,
-                "name": "longitude",
-                "nodeType": "VariableDeclaration",
-                "scope": 37,
-                "src": "469:17:0",
+                "scope": 40,
+                "src": "458:21:0",
                 "stateVariable": false,
                 "storageLocation": "default",
                 "typeDescriptions": {
@@ -1294,10 +1270,10 @@
                   "typeString": "uint256"
                 },
                 "typeName": {
-                  "id": 33,
-                  "name": "uint256",
+                  "id": 31,
+                  "name": "uint",
                   "nodeType": "ElementaryTypeName",
-                  "src": "469:7:0",
+                  "src": "458:4:0",
                   "typeDescriptions": {
                     "typeIdentifier": "t_uint256",
                     "typeString": "uint256"
@@ -1308,11 +1284,47 @@
               },
               {
                 "constant": false,
-                "id": 36,
-                "name": "latitude",
+                "id": 35,
+                "name": "workingDocuments",
                 "nodeType": "VariableDeclaration",
-                "scope": 37,
-                "src": "496:16:0",
+                "scope": 40,
+                "src": "489:23:0",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_array$_t_uint256_$dyn_storage_ptr",
+                  "typeString": "uint256[]"
+                },
+                "typeName": {
+                  "baseType": {
+                    "id": 33,
+                    "name": "uint",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "489:4:0",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "id": 34,
+                  "length": null,
+                  "nodeType": "ArrayTypeName",
+                  "src": "489:6:0",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_array$_t_uint256_$dyn_storage_ptr",
+                    "typeString": "uint256[]"
+                  }
+                },
+                "value": null,
+                "visibility": "internal"
+              },
+              {
+                "constant": false,
+                "id": 37,
+                "name": "longitude",
+                "nodeType": "VariableDeclaration",
+                "scope": 40,
+                "src": "523:17:0",
                 "stateVariable": false,
                 "storageLocation": "default",
                 "typeDescriptions": {
@@ -1320,10 +1332,36 @@
                   "typeString": "uint256"
                 },
                 "typeName": {
-                  "id": 35,
+                  "id": 36,
                   "name": "uint256",
                   "nodeType": "ElementaryTypeName",
-                  "src": "496:7:0",
+                  "src": "523:7:0",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  }
+                },
+                "value": null,
+                "visibility": "internal"
+              },
+              {
+                "constant": false,
+                "id": 39,
+                "name": "latitude",
+                "nodeType": "VariableDeclaration",
+                "scope": 40,
+                "src": "550:16:0",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_uint256",
+                  "typeString": "uint256"
+                },
+                "typeName": {
+                  "id": 38,
+                  "name": "uint256",
+                  "nodeType": "ElementaryTypeName",
+                  "src": "550:7:0",
                   "typeDescriptions": {
                     "typeIdentifier": "t_uint256",
                     "typeString": "uint256"
@@ -1335,36 +1373,36 @@
             ],
             "name": "Employee",
             "nodeType": "StructDefinition",
-            "scope": 72,
-            "src": "312:207:0",
+            "scope": 71,
+            "src": "301:272:0",
             "visibility": "public"
           },
           {
             "canonicalName": "BusinessModels.CmrDocument",
-            "id": 55,
+            "id": 58,
             "members": [
               {
                 "constant": false,
-                "id": 39,
+                "id": 42,
                 "name": "status",
                 "nodeType": "VariableDeclaration",
-                "scope": 55,
-                "src": "554:22:0",
+                "scope": 58,
+                "src": "608:22:0",
                 "stateVariable": false,
                 "storageLocation": "default",
                 "typeDescriptions": {
-                  "typeIdentifier": "t_enum$_SpeditionStatus_$8",
+                  "typeIdentifier": "t_enum$_SpeditionStatus_$7",
                   "typeString": "enum BusinessModels.SpeditionStatus"
                 },
                 "typeName": {
                   "contractScope": null,
-                  "id": 38,
+                  "id": 41,
                   "name": "SpeditionStatus",
                   "nodeType": "UserDefinedTypeName",
-                  "referencedDeclaration": 8,
-                  "src": "554:15:0",
+                  "referencedDeclaration": 7,
+                  "src": "608:15:0",
                   "typeDescriptions": {
-                    "typeIdentifier": "t_enum$_SpeditionStatus_$8",
+                    "typeIdentifier": "t_enum$_SpeditionStatus_$7",
                     "typeString": "enum BusinessModels.SpeditionStatus"
                   }
                 },
@@ -1373,11 +1411,11 @@
               },
               {
                 "constant": false,
-                "id": 41,
+                "id": 44,
                 "name": "senderCompanyID",
                 "nodeType": "VariableDeclaration",
-                "scope": 55,
-                "src": "587:20:0",
+                "scope": 58,
+                "src": "641:20:0",
                 "stateVariable": false,
                 "storageLocation": "default",
                 "typeDescriptions": {
@@ -1385,10 +1423,10 @@
                   "typeString": "uint256"
                 },
                 "typeName": {
-                  "id": 40,
+                  "id": 43,
                   "name": "uint",
                   "nodeType": "ElementaryTypeName",
-                  "src": "587:4:0",
+                  "src": "641:4:0",
                   "typeDescriptions": {
                     "typeIdentifier": "t_uint256",
                     "typeString": "uint256"
@@ -1399,11 +1437,11 @@
               },
               {
                 "constant": false,
-                "id": 43,
+                "id": 46,
                 "name": "recipientCompanyID",
                 "nodeType": "VariableDeclaration",
-                "scope": 55,
-                "src": "618:23:0",
+                "scope": 58,
+                "src": "672:23:0",
                 "stateVariable": false,
                 "storageLocation": "default",
                 "typeDescriptions": {
@@ -1411,10 +1449,10 @@
                   "typeString": "uint256"
                 },
                 "typeName": {
-                  "id": 42,
+                  "id": 45,
                   "name": "uint",
                   "nodeType": "ElementaryTypeName",
-                  "src": "618:4:0",
+                  "src": "672:4:0",
                   "typeDescriptions": {
                     "typeIdentifier": "t_uint256",
                     "typeString": "uint256"
@@ -1425,11 +1463,11 @@
               },
               {
                 "constant": false,
-                "id": 45,
+                "id": 48,
                 "name": "speditorCompanyID",
                 "nodeType": "VariableDeclaration",
-                "scope": 55,
-                "src": "652:22:0",
+                "scope": 58,
+                "src": "706:22:0",
                 "stateVariable": false,
                 "storageLocation": "default",
                 "typeDescriptions": {
@@ -1437,10 +1475,10 @@
                   "typeString": "uint256"
                 },
                 "typeName": {
-                  "id": 44,
+                  "id": 47,
                   "name": "uint",
                   "nodeType": "ElementaryTypeName",
-                  "src": "652:4:0",
+                  "src": "706:4:0",
                   "typeDescriptions": {
                     "typeIdentifier": "t_uint256",
                     "typeString": "uint256"
@@ -1451,54 +1489,26 @@
               },
               {
                 "constant": false,
-                "id": 47,
+                "id": 50,
                 "name": "origin",
                 "nodeType": "VariableDeclaration",
-                "scope": 55,
-                "src": "689:12:0",
+                "scope": 58,
+                "src": "743:12:0",
                 "stateVariable": false,
                 "storageLocation": "default",
                 "typeDescriptions": {
-                  "typeIdentifier": "t_struct$_Place_$60_storage_ptr",
+                  "typeIdentifier": "t_struct$_Place_$63_storage_ptr",
                   "typeString": "struct BusinessModels.Place"
                 },
                 "typeName": {
                   "contractScope": null,
-                  "id": 46,
+                  "id": 49,
                   "name": "Place",
                   "nodeType": "UserDefinedTypeName",
-                  "referencedDeclaration": 60,
-                  "src": "689:5:0",
+                  "referencedDeclaration": 63,
+                  "src": "743:5:0",
                   "typeDescriptions": {
-                    "typeIdentifier": "t_struct$_Place_$60_storage_ptr",
-                    "typeString": "struct BusinessModels.Place"
-                  }
-                },
-                "value": null,
-                "visibility": "internal"
-              },
-              {
-                "constant": false,
-                "id": 49,
-                "name": "destination",
-                "nodeType": "VariableDeclaration",
-                "scope": 55,
-                "src": "711:17:0",
-                "stateVariable": false,
-                "storageLocation": "default",
-                "typeDescriptions": {
-                  "typeIdentifier": "t_struct$_Place_$60_storage_ptr",
-                  "typeString": "struct BusinessModels.Place"
-                },
-                "typeName": {
-                  "contractScope": null,
-                  "id": 48,
-                  "name": "Place",
-                  "nodeType": "UserDefinedTypeName",
-                  "referencedDeclaration": 60,
-                  "src": "711:5:0",
-                  "typeDescriptions": {
-                    "typeIdentifier": "t_struct$_Place_$60_storage_ptr",
+                    "typeIdentifier": "t_struct$_Place_$63_storage_ptr",
                     "typeString": "struct BusinessModels.Place"
                   }
                 },
@@ -1508,10 +1518,38 @@
               {
                 "constant": false,
                 "id": 52,
+                "name": "destination",
+                "nodeType": "VariableDeclaration",
+                "scope": 58,
+                "src": "765:17:0",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_struct$_Place_$63_storage_ptr",
+                  "typeString": "struct BusinessModels.Place"
+                },
+                "typeName": {
+                  "contractScope": null,
+                  "id": 51,
+                  "name": "Place",
+                  "nodeType": "UserDefinedTypeName",
+                  "referencedDeclaration": 63,
+                  "src": "765:5:0",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_struct$_Place_$63_storage_ptr",
+                    "typeString": "struct BusinessModels.Place"
+                  }
+                },
+                "value": null,
+                "visibility": "internal"
+              },
+              {
+                "constant": false,
+                "id": 55,
                 "name": "stepIDs",
                 "nodeType": "VariableDeclaration",
-                "scope": 55,
-                "src": "739:14:0",
+                "scope": 58,
+                "src": "793:14:0",
                 "stateVariable": false,
                 "storageLocation": "default",
                 "typeDescriptions": {
@@ -1520,19 +1558,19 @@
                 },
                 "typeName": {
                   "baseType": {
-                    "id": 50,
+                    "id": 53,
                     "name": "uint",
                     "nodeType": "ElementaryTypeName",
-                    "src": "739:4:0",
+                    "src": "793:4:0",
                     "typeDescriptions": {
                       "typeIdentifier": "t_uint256",
                       "typeString": "uint256"
                     }
                   },
-                  "id": 51,
+                  "id": 54,
                   "length": null,
                   "nodeType": "ArrayTypeName",
-                  "src": "739:6:0",
+                  "src": "793:6:0",
                   "typeDescriptions": {
                     "typeIdentifier": "t_array$_t_uint256_$dyn_storage_ptr",
                     "typeString": "uint256[]"
@@ -1543,11 +1581,11 @@
               },
               {
                 "constant": false,
-                "id": 54,
+                "id": 57,
                 "name": "transferedItem",
                 "nodeType": "VariableDeclaration",
-                "scope": 55,
-                "src": "764:22:0",
+                "scope": 58,
+                "src": "818:22:0",
                 "stateVariable": false,
                 "storageLocation": "default",
                 "typeDescriptions": {
@@ -1555,10 +1593,10 @@
                   "typeString": "bytes32"
                 },
                 "typeName": {
-                  "id": 53,
+                  "id": 56,
                   "name": "bytes32",
                   "nodeType": "ElementaryTypeName",
-                  "src": "764:7:0",
+                  "src": "818:7:0",
                   "typeDescriptions": {
                     "typeIdentifier": "t_bytes32",
                     "typeString": "bytes32"
@@ -1570,21 +1608,21 @@
             ],
             "name": "CmrDocument",
             "nodeType": "StructDefinition",
-            "scope": 72,
-            "src": "525:268:0",
+            "scope": 71,
+            "src": "579:268:0",
             "visibility": "public"
           },
           {
             "canonicalName": "BusinessModels.Place",
-            "id": 60,
+            "id": 63,
             "members": [
               {
                 "constant": false,
-                "id": 57,
+                "id": 60,
                 "name": "latitude",
                 "nodeType": "VariableDeclaration",
-                "scope": 60,
-                "src": "822:16:0",
+                "scope": 63,
+                "src": "876:16:0",
                 "stateVariable": false,
                 "storageLocation": "default",
                 "typeDescriptions": {
@@ -1592,10 +1630,10 @@
                   "typeString": "uint256"
                 },
                 "typeName": {
-                  "id": 56,
+                  "id": 59,
                   "name": "uint256",
                   "nodeType": "ElementaryTypeName",
-                  "src": "822:7:0",
+                  "src": "876:7:0",
                   "typeDescriptions": {
                     "typeIdentifier": "t_uint256",
                     "typeString": "uint256"
@@ -1606,11 +1644,11 @@
               },
               {
                 "constant": false,
-                "id": 59,
+                "id": 62,
                 "name": "longitude",
                 "nodeType": "VariableDeclaration",
-                "scope": 60,
-                "src": "848:17:0",
+                "scope": 63,
+                "src": "902:17:0",
                 "stateVariable": false,
                 "storageLocation": "default",
                 "typeDescriptions": {
@@ -1618,10 +1656,10 @@
                   "typeString": "uint256"
                 },
                 "typeName": {
-                  "id": 58,
+                  "id": 61,
                   "name": "uint256",
                   "nodeType": "ElementaryTypeName",
-                  "src": "848:7:0",
+                  "src": "902:7:0",
                   "typeDescriptions": {
                     "typeIdentifier": "t_uint256",
                     "typeString": "uint256"
@@ -1633,49 +1671,21 @@
             ],
             "name": "Place",
             "nodeType": "StructDefinition",
-            "scope": 72,
-            "src": "799:73:0",
+            "scope": 71,
+            "src": "853:73:0",
             "visibility": "public"
           },
           {
             "canonicalName": "BusinessModels.TransferStep",
-            "id": 71,
+            "id": 70,
             "members": [
               {
                 "constant": false,
-                "id": 62,
-                "name": "stepPlace",
-                "nodeType": "VariableDeclaration",
-                "scope": 71,
-                "src": "909:15:0",
-                "stateVariable": false,
-                "storageLocation": "default",
-                "typeDescriptions": {
-                  "typeIdentifier": "t_struct$_Place_$60_storage_ptr",
-                  "typeString": "struct BusinessModels.Place"
-                },
-                "typeName": {
-                  "contractScope": null,
-                  "id": 61,
-                  "name": "Place",
-                  "nodeType": "UserDefinedTypeName",
-                  "referencedDeclaration": 60,
-                  "src": "909:5:0",
-                  "typeDescriptions": {
-                    "typeIdentifier": "t_struct$_Place_$60_storage_ptr",
-                    "typeString": "struct BusinessModels.Place"
-                  }
-                },
-                "value": null,
-                "visibility": "internal"
-              },
-              {
-                "constant": false,
-                "id": 64,
+                "id": 65,
                 "name": "forwardedFromEmploy",
                 "nodeType": "VariableDeclaration",
-                "scope": 71,
-                "src": "935:24:0",
+                "scope": 70,
+                "src": "963:24:0",
                 "stateVariable": false,
                 "storageLocation": "default",
                 "typeDescriptions": {
@@ -1683,10 +1693,10 @@
                   "typeString": "uint256"
                 },
                 "typeName": {
-                  "id": 63,
+                  "id": 64,
                   "name": "uint",
                   "nodeType": "ElementaryTypeName",
-                  "src": "935:4:0",
+                  "src": "963:4:0",
                   "typeDescriptions": {
                     "typeIdentifier": "t_uint256",
                     "typeString": "uint256"
@@ -1697,11 +1707,11 @@
               },
               {
                 "constant": false,
-                "id": 66,
+                "id": 67,
                 "name": "forwardedToEmploy",
                 "nodeType": "VariableDeclaration",
-                "scope": 71,
-                "src": "984:22:0",
+                "scope": 70,
+                "src": "1012:22:0",
                 "stateVariable": false,
                 "storageLocation": "default",
                 "typeDescriptions": {
@@ -1709,10 +1719,10 @@
                   "typeString": "uint256"
                 },
                 "typeName": {
-                  "id": 65,
+                  "id": 66,
                   "name": "uint",
                   "nodeType": "ElementaryTypeName",
-                  "src": "984:4:0",
+                  "src": "1012:4:0",
                   "typeDescriptions": {
                     "typeIdentifier": "t_uint256",
                     "typeString": "uint256"
@@ -1723,51 +1733,25 @@
               },
               {
                 "constant": false,
-                "id": 68,
-                "name": "forwardReceiverComment",
+                "id": 69,
+                "name": "commentID",
                 "nodeType": "VariableDeclaration",
-                "scope": 71,
-                "src": "1031:29:0",
+                "scope": 70,
+                "src": "1059:14:0",
                 "stateVariable": false,
                 "storageLocation": "default",
                 "typeDescriptions": {
-                  "typeIdentifier": "t_string_storage_ptr",
-                  "typeString": "string"
+                  "typeIdentifier": "t_uint256",
+                  "typeString": "uint256"
                 },
                 "typeName": {
-                  "id": 67,
-                  "name": "string",
+                  "id": 68,
+                  "name": "uint",
                   "nodeType": "ElementaryTypeName",
-                  "src": "1031:6:0",
+                  "src": "1059:4:0",
                   "typeDescriptions": {
-                    "typeIdentifier": "t_string_storage_ptr",
-                    "typeString": "string"
-                  }
-                },
-                "value": null,
-                "visibility": "internal"
-              },
-              {
-                "constant": false,
-                "id": 70,
-                "name": "transferingVehicleID",
-                "nodeType": "VariableDeclaration",
-                "scope": 71,
-                "src": "1071:28:0",
-                "stateVariable": false,
-                "storageLocation": "default",
-                "typeDescriptions": {
-                  "typeIdentifier": "t_bytes32",
-                  "typeString": "bytes32"
-                },
-                "typeName": {
-                  "id": 69,
-                  "name": "bytes32",
-                  "nodeType": "ElementaryTypeName",
-                  "src": "1071:7:0",
-                  "typeDescriptions": {
-                    "typeIdentifier": "t_bytes32",
-                    "typeString": "bytes32"
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
                   }
                 },
                 "value": null,
@@ -1776,16 +1760,16 @@
             ],
             "name": "TransferStep",
             "nodeType": "StructDefinition",
-            "scope": 72,
-            "src": "878:228:0",
+            "scope": 71,
+            "src": "932:148:0",
             "visibility": "public"
           }
         ],
-        "scope": 73,
-        "src": "25:1083:0"
+        "scope": 72,
+        "src": "25:1057:0"
       }
     ],
-    "src": "0:1108:0"
+    "src": "0:1082:0"
   },
   "compiler": {
     "name": "solc",
@@ -1793,5 +1777,5 @@
   },
   "networks": {},
   "schemaVersion": "2.0.1",
-  "updatedAt": "2018-12-08T18:36:10.834Z"
+  "updatedAt": "2018-12-08T20:32:31.497Z"
 }
