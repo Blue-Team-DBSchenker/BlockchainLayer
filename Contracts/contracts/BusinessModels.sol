@@ -1,4 +1,4 @@
-pragma solidity ^0.5;
+pragma solidity 0.5.0;
 
 library BusinessModels {
 
@@ -9,14 +9,15 @@ library BusinessModels {
         uint256 id;
         bytes32 companyName;
         uint[] transferDocuments;
-        Employ[] employs;
+        uint[] employees;
     }
 
-    struct Employ {
+    struct Employee {
         bytes32 name;
         bytes32 surname;
         uint employerID;
-        uint employID;
+        uint companyEmployeeID;
+        uint systemEmployeeID;
         uint[] workingDocuments;
 
         uint256 longitude;
@@ -35,7 +36,7 @@ library BusinessModels {
         Place origin;
         Place destination;
 
-        TransferStep[] steps;
+        uint[] stepIDs;
 
         bytes32 transferedItem;
     }
@@ -49,11 +50,9 @@ library BusinessModels {
 
         Place stepPlace;
 
-        uint forwardedFromEmploy; // EmployID
-        uint forwardedFromCompany; // Company ID
+        uint forwardedFromEmploy; // EmployeeID
 
-        uint forwardedToEmploy; // EmployID
-        uint forwardedToCompany; // CompanyID
+        uint forwardedToEmploy; // EmployeeID
 
         string forwardReceiverComment;
 

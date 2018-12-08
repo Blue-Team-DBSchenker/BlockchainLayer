@@ -1,4 +1,4 @@
-pragma solidity ^0.5;
+pragma solidity 0.5.0;
 
 import "./BusinessModels.sol";
 
@@ -6,10 +6,17 @@ import "./BusinessModels.sol";
 contract NetworkLogic {
     BusinessModels.Company[] companies;
     BusinessModels.CmrDocument[] documents;
-    BusinessModels.Employ[] employs;
+    BusinessModels.Employee[] employees;
+    BusinessModels.TransferStep[] steps;
 
     event companyRegistered(address companyAddress, bytes32 name, uint id);
-    event companyRegistersNewEmploy(uint companyID, bytes32 name, bytes32 surname, uint employID);
+    event companyRegistersNewEmployee(
+        uint companyID,
+        bytes32 name,
+        bytes32 surname,
+        uint companyEmployeeID,
+        uint systemEmployeeID
+    );
 
     event newSpedition(
         address indexed sender,
@@ -37,35 +44,52 @@ contract NetworkLogic {
         _;
     }
 
+    modifier employeeWorksInCompany(uint _companyID, uint _systemEmployeeID) {
+        require(isEmployerWorkingInCompany(_companyID, _systemEmployeeID), "This employee doesn't work in the given company");
+        _;
+    }
+
+    function isEmployerWorkingInCompany(uint _companyID, uint _systemEmployeeID) private view returns(bool) {
+        for(uint i = 0; i < companies[_companyID].employees.length; i++) {
+            if(companies[_companyID].employees[i] == _systemEmployeeID) {
+                return true;
+            } 
+        }
+        return false;
+    }
+
     function registerNewCompany(address _address, bytes32 _name) public {
         BusinessModels.Company memory company = BusinessModels.Company({
             companyAddress: _address,
             companyName: _name,
             id: companies.length,
             transferDocuments: new uint[](0),
-            employs: new BusinessModels.Employ[](0)
+            employees: new uint[](0)
         });
 
         companies.push(company);
         emit companyRegistered(_address, _name, companies.length);
     }
 
-    function registerNewEmploy(uint _companyID, bytes32 _name, bytes32 _surname) public 
+    function registerNewEmployee(uint _companyID, bytes32 _name, bytes32 _surname) public 
     companyExists(_companyID)
     onlySpecificCompany(_companyID)
     {
-        BusinessModels.Employ memory employ = BusinessModels.Employ({
+        BusinessModels.Employee memory employee = BusinessModels.Employee({
             name: _name,
             surname: _surname,
             employerID: companies[_companyID].id,
-            employID: companies[_companyID].employs.length,
+            companyEmployeeID: companies[_companyID].employees.length,
+            systemEmployeeID: employees.length - 1,
             workingDocuments: new uint[](0),
             longitude: 0,
             latitude: 0
         });
 
-        companies[_companyID].employs.push(employ);
-        emit companyRegistersNewEmploy(_companyID, _name, _surname, employ.employID);
+        uint employeeID = employees.push(employee);
+
+        companies[_companyID].employees.push(employeeID);
+        emit companyRegistersNewEmployee(_companyID, _name, _surname, employee.companyEmployeeID, employeeID);
     }
 
     function registerNewSpedition(
@@ -93,7 +117,7 @@ contract NetworkLogic {
             _speditorCompanyID,
             BusinessModels.Place(_originLatitude, _originLongitude),
             BusinessModels.Place(_destinationLatitude, _destinationLongitude),
-            new BusinessModels.TransferStep[](0),
+            new uint[](0),
             _transferedItem
         ));
 
@@ -113,4 +137,25 @@ contract NetworkLogic {
         documents[_speditionDocumentID].status = BusinessModels.SpeditionStatus.Confirmed;
         emit speditionConfirmed(_speditionDocumentID);
     }
+
+    function appendStepToDocument(
+        uint _speditionDocumentID,
+        uint _speditorCompanyID,
+
+        uint _forwardedFromEmploy,
+        uint _forwardedToEmploy,
+
+        uint _transferLatitude,
+        uint _transferLongitude,
+
+        string memory _coments,
+
+        bytes32 _transferingVehicleID
+      ) public
+    documentExists(_speditionDocumentID)
+    companyExists(_speditorCompanyID)
+    onlySpecificCompany(_speditorCompanyID)
+    employeeWorksInCompany(_speditorCompanyID, _forwardedFromEmploy)
+    employeeWorksInCompany(_speditorCompanyID, _forwardedToEmploy)
+    {}
 } 

@@ -21,5 +21,12 @@ module.exports = {
       port: 7545,
       network_id: "*"
     }
+  },
+  solc: {
+    version: "0.4.24",
+    optimizer: {
+      enabled: true,
+      runs: 200
+    }
   }
 };
