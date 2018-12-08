@@ -9,11 +9,14 @@ contract NetworkLogic {
     BusinessModels.Employee[] employees;
     BusinessModels.TransferStep[] steps;
 
+    address[] authorities;
+    string[] comments;
+
     event companyRegistered(address companyAddress, bytes32 name, uint id);
     event companyRegistersNewEmployee(
         uint companyID,
-        bytes32 name,
-        bytes32 surname,
+        bytes32 login,
+        bytes32 password,
         uint companyEmployeeID,
         uint systemEmployeeID
     );
@@ -27,6 +30,20 @@ contract NetworkLogic {
 
     event speditionConfirmed(
         uint indexed speditionID
+    );
+
+    event newStepAppendedToDocument(
+        uint indexed documentID,
+        uint forwardedFromEmployeeID,
+        uint forwardedToEmployeeID,
+        uint when,
+        uint stepLatitude,
+        uint stepLongitude
+    );
+
+    event speditionCompleted(
+        uint indexed documentID,
+        uint when
     );
 
     modifier documentExists(uint _id) {
@@ -49,6 +66,10 @@ contract NetworkLogic {
         _;
     }
 
+    constructor(address[] memory _authorities) public {
+        authorities = _authorities;
+    }
+
     function isEmployerWorkingInCompany(uint _companyID, uint _systemEmployeeID) private view returns(bool) {
         for(uint i = 0; i < companies[_companyID].employees.length; i++) {
             if(companies[_companyID].employees[i] == _systemEmployeeID) {
@@ -68,16 +89,17 @@ contract NetworkLogic {
         });
 
         companies.push(company);
-        emit companyRegistered(_address, _name, companies.length);
+        emit companyRegistered(_address, _name, companies.length - 1);
     }
 
-    function registerNewEmployee(uint _companyID, bytes32 _name, bytes32 _surname) public 
+    function registerNewEmployee(uint _companyID, bytes32 _login, bytes32 _password) public 
     companyExists(_companyID)
     onlySpecificCompany(_companyID)
     {
         BusinessModels.Employee memory employee = BusinessModels.Employee({
-            name: _name,
-            surname: _surname,
+            login: _login,
+            password: _password,
+            session: keccak256(abi.encode(_login, _password)),
             employerID: companies[_companyID].id,
             companyEmployeeID: companies[_companyID].employees.length,
             systemEmployeeID: employees.length - 1,
@@ -86,10 +108,10 @@ contract NetworkLogic {
             latitude: 0
         });
 
-        uint employeeID = employees.push(employee);
+        uint employeeID = employees.push(employee) - 1;
 
         companies[_companyID].employees.push(employeeID);
-        emit companyRegistersNewEmployee(_companyID, _name, _surname, employee.companyEmployeeID, employeeID);
+        emit companyRegistersNewEmployee(_companyID, _login, _password, employee.companyEmployeeID, employeeID);
     }
 
     function registerNewSpedition(
@@ -134,7 +156,7 @@ contract NetworkLogic {
     companyExists(_senderCompanyID)
     onlySpecificCompany(_senderCompanyID)
     {
-        documents[_speditionDocumentID].status = BusinessModels.SpeditionStatus.Confirmed;
+        documents[_speditionDocumentID].status = BusinessModels.SpeditionStatus.Active;
         emit speditionConfirmed(_speditionDocumentID);
     }
 
@@ -142,20 +164,53 @@ contract NetworkLogic {
         uint _speditionDocumentID,
         uint _speditorCompanyID,
 
-        uint _forwardedFromEmploy,
-        uint _forwardedToEmploy,
+        uint _forwardedFromEmployee,
+        uint _forwardedToEmployee,
 
         uint _transferLatitude,
         uint _transferLongitude,
 
-        string memory _coments,
-
-        bytes32 _transferingVehicleID
+        string memory _comment
       ) public
     documentExists(_speditionDocumentID)
     companyExists(_speditorCompanyID)
     onlySpecificCompany(_speditorCompanyID)
-    employeeWorksInCompany(_speditorCompanyID, _forwardedFromEmploy)
-    employeeWorksInCompany(_speditorCompanyID, _forwardedToEmploy)
-    {}
+    employeeWorksInCompany(_speditorCompanyID, _forwardedFromEmployee)
+    employeeWorksInCompany(_speditorCompanyID, _forwardedToEmployee)
+    {   
+        uint _stepID = steps.push(BusinessModels.TransferStep(
+            _forwardedFromEmployee,
+            _forwardedToEmployee,
+            comments.length
+        ));
+        comments.push(_comment);
+        documents[_speditionDocumentID].stepIDs.push(_stepID);
+
+        emit newStepAppendedToDocument(
+            _speditionDocumentID,
+            _forwardedFromEmployee,
+            _forwardedToEmployee,
+            now,
+            _transferLatitude,
+            _transferLongitude
+        );
+    }
+
+    function markSpeditionAsCompleted(uint _speditionDocumentID, uint _recieverCompanyID, uint _recievingEmployeeID) public
+    documentExists(_speditionDocumentID) 
+    companyExists(_recieverCompanyID)
+    employeeWorksInCompany(_recieverCompanyID, _recievingEmployeeID)
+    {
+        documents[_speditionDocumentID].status = BusinessModels.SpeditionStatus.Completed;
+        emit speditionCompleted(_speditionDocumentID, now);
+    }
+
+    function getUserIDBySession(bytes32 _session) public view returns(uint) {
+        for(uint i = 0; i < employees.length; i++) {
+            if(employees[i].session == _session) {
+                return employees[i].systemEmployeeID;
+            }
+        }
+        return 2^256-1;
+    }
 } 

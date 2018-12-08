@@ -2,7 +2,7 @@ pragma solidity 0.5.0;
 
 library BusinessModels {
 
-    enum SpeditionStatus { Active, Completed, Frozen, InConflict, Confirmed, Pending }
+    enum SpeditionStatus { Active, Completed, Frozen, InConflict, Pending }
 
     struct Company {
         address companyAddress;
@@ -13,8 +13,9 @@ library BusinessModels {
     }
 
     struct Employee {
-        bytes32 name;
-        bytes32 surname;
+        bytes32 login;
+        bytes32 password;
+        bytes32 session;
         uint employerID;
         uint companyEmployeeID;
         uint systemEmployeeID;
@@ -48,14 +49,10 @@ library BusinessModels {
 
     struct TransferStep {
 
-        Place stepPlace;
-
         uint forwardedFromEmploy; // EmployeeID
 
         uint forwardedToEmploy; // EmployeeID
 
-        string forwardReceiverComment;
-
-        bytes32 transferingVehicleID;
+        uint commentID;
     }
 }
