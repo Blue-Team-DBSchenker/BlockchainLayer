@@ -18,7 +18,7 @@ contract NetworkLogic {
         bytes32 login,
         bytes32 password,
         uint companyEmployeeID,
-        uint systemEmployeeID
+        uint indexed systemEmployeeID
     );
 
     event newSpedition(
